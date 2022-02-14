@@ -31,5 +31,6 @@ Route::group(['prefix' => 'auth'],function()
 
 Route::group(['middleware' => 'auth:sanctum'],function()
 {
-    Route::post('/attendance','Api\AttendanceController@store'); 
+    Route::post('attendance','Api\AttendanceController@store'); 
+    Route::get('attendance/history', 'Api\AttendanceController@history');
 });
