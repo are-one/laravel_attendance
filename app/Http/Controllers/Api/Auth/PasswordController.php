@@ -4,21 +4,24 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class PasswordController extends Controller
 {
+    use SendsPasswordResetEmails;
+
     public function reset(Request $request)
     {
         $request->validate([
             'password_old' => ['required', 'string', 'min:8'],
             'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
-        
+
         if(Hash::check($request->password_old, $request->user()->password)){
-            
+
             $request->user()->update([
                 'password' => Hash::make($request->password)
             ]);
