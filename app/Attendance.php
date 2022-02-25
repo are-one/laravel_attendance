@@ -12,4 +12,14 @@ class Attendance extends Model
     {
         return $this->hasMany(AttendanceDetail::class);
     }
+
+    /**
+     * Get the user that owns the Attendance
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
